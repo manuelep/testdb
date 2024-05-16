@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  # DEPLOY PROFILES
+
+  storage:
+    profiles: ["deploy"]
+    extends:
+      file: docker-compose.common.yml
+      service: storage
+    restart: unless-stopped
+    volumes:
+        - ./storage/scripts:/scripts:ro
+        - ./.db/data:/var/lib/postgresql/data:rw
+
+  # DEVELOPMENT PROFILES
+
+  storage-dev:
+    profiles: ["dev"]
+    extends:
+      file: docker-compose.common.yml
+      service: storage
+    volumes:
+      - ./storage/scripts:/scripts:ro

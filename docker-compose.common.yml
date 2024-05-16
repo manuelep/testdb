@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  storage:
+    profiles: ["__common__"]
+    container_name: ${APP_NAME}-dbms
+    build:
+      context: ./storage/
+      dockerfile: Dockerfile
+    user: 0:${UID}
+    environment:
+      DBPORT: ${DBPORT}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: ${POSTGRES_HOST_AUTH_METHOD}
+      DBNAME: ${DBNAME}
+      DBUSERNAME: ${DBUSERNAME}
+      DBUSERPASSWORD: ${DBUSERPASSWORD}
+      DUMPPATH: ${DUMPPATH}
+      SOURCEMODEL: ${SOURCEMODEL}
+      # SOURCEDUMP: ${SOURCEDUMP}
+    ports:
+      - "${DBPORT}:5432"
+    volumes:
+      - ./storage/scripts:/scripts:ro
+    networks:
+      default:
+        aliases:
+          - dbms.${APP_NAME}
