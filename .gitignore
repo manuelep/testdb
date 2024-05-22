@@ -161,6 +161,15 @@ cython_debug/
 
 *_DEPRECATED
 
+# VSCode
+
 .vscode
+
+# Vim
+
+*.swp
+
+# Other
+
 .db
 logs

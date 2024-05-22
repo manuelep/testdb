@@ -4,6 +4,7 @@ set -e
 psql -v ON_ERROR_STOP=1 --username "postgres" <<-EOSQL
     CREATE USER ${DBUSERNAME} WITH PASSWORD '${DBUSERPASSWORD}';
 	CREATE DATABASE ${DBNAME};
+    ALTER DATABASE ${DBNAME} OWNER TO ${DBUSERNAME};
 EOSQL
 
 psql -v ON_ERROR_STOP=1 --username "postgres" -d ${DBNAME} <<-EOSQL
